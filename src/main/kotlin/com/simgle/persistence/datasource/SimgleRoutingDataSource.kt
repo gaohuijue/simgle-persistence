@@ -9,7 +9,7 @@ import javax.annotation.PostConstruct
 
 @Component
 open class SimgleRoutingDataSource(
-        private val dataSourceProperties: DataSourceProperties
+        private val JDBCConnectionPoolDataSourceProperties: JDBCConnectionPoolDataSourceProperties
 ) : AbstractRoutingDataSource() {
     override fun determineCurrentLookupKey(): Any? {
         return ThreadBinds.get(Constant.DATA_SOURCE_KEY)
@@ -17,15 +17,15 @@ open class SimgleRoutingDataSource(
 
     @PostConstruct
     open fun postConstruct() {
-        val config = dataSourceProperties.dataSource
+        val config = JDBCConnectionPoolDataSourceProperties.dataSource
         if (config != null) {
             this.setDefaultTargetDataSource(HikariDataSource(config))
             this.setTargetDataSources(mutableMapOf())
         } else {
-            val defaultDataSourceKey = dataSourceProperties.defaultDataSourceKey
+            val defaultDataSourceKey = JDBCConnectionPoolDataSourceProperties.defaultDataSourceKey
                     ?: throw RuntimeException("多数据源必须设置默认数据源。")
             val multiDataSources = mutableMapOf<Any, Any>()
-            (dataSourceProperties.dataSources ?: throw RuntimeException("没有多数据源配置")).forEach {
+            (JDBCConnectionPoolDataSourceProperties.dataSources ?: throw RuntimeException("没有多数据源配置")).forEach {
                 multiDataSources[it.key] = HikariDataSource(it.value)
             }
             val defaultDataSource = multiDataSources[defaultDataSourceKey]
