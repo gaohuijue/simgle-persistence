@@ -18,10 +18,10 @@ repositories {
 }
 
 dependencies {
+    api("org.hibernate:hibernate-core:5.4.1.Final")
     compileOnly("org.springframework.boot:spring-boot-starter:2.2.2.RELEASE")
     compileOnly("com.simgle:simgle-core:+")
     implementation("org.springframework:spring-orm:5.2.2.RELEASE")
-    implementation("org.hibernate:hibernate-core:5.4.1.Final")
     implementation("com.zaxxer:HikariCP:3.4.1")
     implementation("mysql:mysql-connector-java:8.0.15")
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.2.2.RELEASE") {
@@ -44,6 +44,10 @@ tasks.withType<KotlinCompile> {
 tasks.create("sourceJar", Jar::class.java) {
     this.archiveClassifier.set("sources")
     this.from(sourceSets.main.get().allSource)
+}
+
+tasks.javadoc {
+    this.options.encoding = "UTF-8"
 }
 
 publishing {

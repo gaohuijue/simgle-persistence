@@ -1,5 +1,6 @@
 package com.simgle.persistence.jpavendor.hibernate
 
+import com.simgle.core.Constant
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -10,6 +11,6 @@ import javax.sql.DataSource
 open class HibernateEMFBuilder {
     @Bean
     open fun entityManagerFactory(builder: EntityManagerFactoryBuilder, dataSource: DataSource): LocalContainerEntityManagerFactoryBean {
-        return builder.dataSource(dataSource).packages("com.shinow").build()
+        return builder.dataSource(dataSource).packages(Constant.BASE_PACKAGE).build()
     }
 }
