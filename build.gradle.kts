@@ -19,11 +19,14 @@ repositories {
 
 dependencies {
     api("org.hibernate:hibernate-core:5.4.1.Final")
-    compileOnly("org.springframework.boot:spring-boot-starter:2.2.2.RELEASE")
-    compileOnly("com.simgle:simgle-core:+")
+    implementation("org.springframework.boot:spring-boot-starter:2.2.2.RELEASE")
+    implementation("com.simgle:simgle-core:+")
     implementation("org.springframework:spring-orm:5.2.2.RELEASE")
     implementation("com.zaxxer:HikariCP:3.4.1")
     implementation("mysql:mysql-connector-java:8.0.15")
+
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.2.2.RELEASE") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
